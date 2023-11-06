@@ -1,7 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using MotivWebApp.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+// Registers DBContext
+string? connectionString = builder.Configuration["ConnectionStrings:LocalDB"];
+
+builder.Services.AddDbContext<DBContext>(options => 
+    options.UseSqlite(connectionString));
 
 var app = builder.Build();
 
