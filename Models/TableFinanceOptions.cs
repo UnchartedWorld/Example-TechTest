@@ -8,6 +8,7 @@ namespace MotivWebApp.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int FinanceOptionID { get; set; }
+        public string FinanceLoanName { get; set; }
         public decimal FinanceLoanRate { get; set; }
         public int MinLoanAmount { get; set; }
         public int MaxLoanAmount { get; set; }
