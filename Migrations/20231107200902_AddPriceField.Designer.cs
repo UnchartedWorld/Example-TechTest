@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MotivWebApp.Data;
 
@@ -10,9 +11,11 @@ using MotivWebApp.Data;
 namespace MotivWebApp.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20231107200902_AddPriceField")]
+    partial class AddPriceField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.13");
@@ -105,10 +108,6 @@ namespace MotivWebApp.Migrations
                     b.Property<int>("FinanceOptionID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("FinanceLoanName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("FinanceLoanRate")
                         .HasColumnType("TEXT");
