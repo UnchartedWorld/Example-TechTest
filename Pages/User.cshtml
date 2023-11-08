@@ -1,0 +1,23 @@
+﻿@page
+@model MotivWebApp.Pages.UserModel
+@{
+    ViewData["Title"] = "User page";
+}
+
+@if (Model.UserResponseData != null)
+{
+    <section class="user-info row justify-content-center">
+        <div class="col-md-6 text-center">
+            <img src="@Model.UserResponseData.PictureURL" class="img-fluid rounded user-image m-3" alt="Image representing the user" />
+            <div class="text-left">
+                <h2>Name:</h2>
+                <p>@Model.UserResponseData.NameTitle @Model.UserResponseData.Name</p>
+                <h2>Email:</h2>
+                <p>@Model.UserResponseData.Email</p>
+                <h2>Date Of Birth:</h2>
+                <p>@Model.UserResponseData.DateOfBirth</p>
+            </div>
+        </div>
+    </section>
+
+}
