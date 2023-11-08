@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using MotivWebApp.Data;
 using MotivWebApp.DTOs;
 using MotivWebApp.Models;
@@ -23,10 +24,10 @@ namespace MotivWebApp.Pages
             DrivingLicenses = new List<TableDrivingLicense>();
             MaritalStatuses = new List<TableMaritalStatus>();
         }
-        public void OnGet()
+        public async void OnGetAsync()
         {
-            List<TableDrivingLicense> retrievedDrivingLicenses = _dBContext.TableDrivingLicense.ToList();
-            List<TableMaritalStatus> retrievedMartialStatuses = _dBContext.TableMaritalStatus.ToList();
+            List<TableDrivingLicense> retrievedDrivingLicenses = await _dBContext.TableDrivingLicense.ToListAsync();
+            List<TableMaritalStatus> retrievedMartialStatuses = await _dBContext.TableMaritalStatus.ToListAsync();
 
             if (retrievedDrivingLicenses.Count > 0 && retrievedMartialStatuses.Count > 0)
             {
@@ -37,6 +38,7 @@ namespace MotivWebApp.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
+            // https://www.youtube.com/watch?v=PtzH6vu91e8 - A godsend of a video in figuring this aspect out.
             if (ApplicationRequest.CarPrice < ApplicationRequest.DepositAmount)
             {
                 ModelState.AddModelError("ApplicationRequest.CarPrice", "Car price cannot be less than the deposit amount");
@@ -84,7 +86,11 @@ namespace MotivWebApp.Pages
                 _dBContext.TableAppInputRelations.Add(submittedRelations);
 
                 await _dBContext.SaveChangesAsync();
-                return RedirectToPage("/Index");
+                // https://stackoverflow.com/a/15204104 - Decided to use TempData as it allowed me to send data between requests,
+                // and also avoid showing an applicant's ID. Furthermore, it's gone after being read, so this also ensures some
+                // semblance of security.
+                TempData["applicantID"] = submittedApplication.ApplicationID;
+                return RedirectToPage("/FinanceOptions");
             }
         }
     }
