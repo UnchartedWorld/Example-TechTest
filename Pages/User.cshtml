@@ -4,20 +4,53 @@
     ViewData["Title"] = "User page";
 }
 
+@section Styles
+    {
+    <link rel="stylesheet" href="~/css/userInfo.css" asp-append-version="true" />
+}
+
+
 @if (Model.UserResponseData != null)
 {
-    <section class="user-info row justify-content-center">
-        <div class="col-md-6 text-center">
-            <img src="@Model.UserResponseData.PictureURL" class="img-fluid rounded user-image m-3" alt="Image representing the user" />
-            <div class="text-left">
-                <h2>Name:</h2>
-                <p>@Model.UserResponseData.NameTitle @Model.UserResponseData.Name</p>
-                <h2>Email:</h2>
-                <p>@Model.UserResponseData.Email</p>
-                <h2>Date Of Birth:</h2>
-                <p>@Model.UserResponseData.DateOfBirth</p>
+    <div class="row">
+        <!-- Left side -->
+        <section class="col-lg-4 mb-3 text-center">
+            <div class="card mx-auto user-info-card">
+                <div class="card-body">
+                    <img src="@Model.UserResponseData.PictureURL" class="card-img-top rounded-circle border border-4" alt="Image representing the user" />
+                    <h3 class="card-title">User Details</h3>
+                    <dl>
+                        <dt><i class="bi bi-person-badge"></i> Name:</dt>
+                        <dd class="card-text">@Model.UserResponseData.NameTitle @Model.UserResponseData.Name</dd>
+
+                        <dt><i class="bi bi-envelope"></i> Email:</dt>
+                        <dd class="card-text">@Model.UserResponseData.Email</dd>
+
+                        <dt><i class="bi bi-cake"></i> Date Of Birth:</dt>
+                        <dd class="card-text">@Model.UserResponseData.DateOfBirth</dd>
+                    </dl>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- Right side -->
+        <section class="col-lg-8">
+            <div class="card mx-auto">
+                <div class="card-header">
+                    Extra details                    
+                </div>
+                <div class="card-body">                
+                <h3 class="card-title">A little bit about me: </h3>
+                <p class="card-text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Mauris a diam maecenas sed enim ut sem. Risus in hendrerit gravida rutrum quisque non tellus orci.
+                    Adipiscing diam donec adipiscing tristique. Volutpat maecenas volutpat blandit aliquam.
+                    Massa tincidunt nunc pulvinar sapien et. Pretium viverra suspendisse potenti nullam ac tortor.
+                    Mus mauris vitae ultricies leo integer.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
 
 }
