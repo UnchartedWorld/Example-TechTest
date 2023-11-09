@@ -7,7 +7,7 @@ using MotivWebApp.Models;
 
 namespace MotivWebApp.Pages
 {
-    public class InsuranceApplicationModel : PageModel
+    public class FinanceFormModel : PageModel
     {
         private readonly DBContext _dBContext;
 
@@ -16,7 +16,7 @@ namespace MotivWebApp.Pages
         public List<TableDrivingLicense> DrivingLicenses { get; set; }
         public List<TableMaritalStatus> MaritalStatuses { get; set; }
 
-        public InsuranceApplicationModel(DBContext dBContext)
+        public FinanceFormModel(DBContext dBContext)
         {
             _dBContext = dBContext;
 
