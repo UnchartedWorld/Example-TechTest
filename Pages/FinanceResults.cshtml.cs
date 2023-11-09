@@ -7,13 +7,13 @@ using MotivWebApp.Services;
 
 namespace MotivWebApp.Pages
 {
-    public class FinanceOptionsModel : PageModel
+    public class FinanceResultsModel : PageModel
     {
         private FinanceService _financeService;
 
         public List<FinanceOptionsResponse> FinanceOptionsResponses { get; set; }
 
-        public FinanceOptionsModel(FinanceService financeService)
+        public FinanceResultsModel(FinanceService financeService)
         {
             _financeService = financeService;
 
