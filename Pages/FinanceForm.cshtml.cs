@@ -90,7 +90,7 @@ namespace MotivWebApp.Pages
                 // and also avoid showing an applicant's ID. Furthermore, it's gone after being read, so this also ensures some
                 // semblance of security.
                 TempData["applicantID"] = submittedApplication.ApplicationID;
-                return RedirectToPage("/FinanceOptions");
+                return RedirectToPage("/FinanceResults");
             }
         }
     }
