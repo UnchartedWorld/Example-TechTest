@@ -1,0 +1,37 @@
+﻿@page
+@model MotivWebApp.Pages.FinanceResultsModel
+@{
+    ViewData["Title"] = "Finance Options";
+}
+
+
+@if (Model.FinanceOptionsResponses.Count <= 0)
+{
+    <section class="d-flex justify-content-center align-items-center">
+        <div class="mt-5">
+            <h1 class="display-2" aria-label="Emoticon depicting an individual bowing for forgiveness">(シ_ _)シ</h1>
+            <p class="h3 mt-3">We're sorry, no finance options were found.</p>
+        </div>
+    </section>
+}
+else if (Model.FinanceOptionsResponses.Count > 0)
+{
+    <h3>Here are your finance options: </h3>
+
+    <div class="row row-cols-1 row-cols-lg-2">
+        @foreach (var option in Model.FinanceOptionsResponses)
+        {
+            <div class="col col-lg-6">
+                <section class="card result-card">
+                    <img src="https://picsum.photos/400/200?timestamp=@DateTime.UtcNow.Ticks" class="card-img-top" alt="Random image">
+                    <div class="card-body">
+                        <h5 class="card-title">@option.FinanceOptionsName</h5>
+                        <p>This option has a @option.FinanceLoanRate% <abbr title="Annual Percentage Rate">APR</abbr>, bare that in mind.</p>
+                        <a href="https://randomoutputs.com/random-cat-generator" class="btn btn-primary">Check out this option</a>
+                    </div>
+                </section>
+            </div>
+        }
+    </div>
+
+}

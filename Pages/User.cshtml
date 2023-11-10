@@ -1,0 +1,51 @@
+﻿@page
+@model MotivWebApp.Pages.UserModel
+@{
+    ViewData["Title"] = "User page";
+}
+
+
+@if (Model.UserResponseData != null)
+{
+    <div class="row">
+        <!-- Left side -->
+        <section class="col-lg-4 mb-3 text-center">
+            <div class="card detail-card user-info-card">
+                <div class="card-body">
+                    <img src="@Model.UserResponseData.PictureURL" class="card-img-top rounded-circle border border-4" alt="Image representing the user" />
+                    <h3 class="card-title">User Details</h3>
+                    <dl>
+                        <dt><i class="bi bi-person-badge"></i> Name:</dt>
+                        <dd class="card-text">@Model.UserResponseData.NameTitle @Model.UserResponseData.Name</dd>
+
+                        <dt><i class="bi bi-envelope"></i> Email:</dt>
+                        <dd class="card-text">@Model.UserResponseData.Email</dd>
+
+                        <dt><i class="bi bi-cake"></i> Date Of Birth:</dt>
+                        <dd class="card-text">@Model.UserResponseData.DateOfBirth</dd>
+                    </dl>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right side -->
+        <section class="col-lg-8">
+            <div class="card detail-card">
+                <div class="card-header">
+                    Extra details                    
+                </div>
+                <div class="card-body">                
+                <h3 class="card-title">A little bit about me: </h3>
+                <p class="card-text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Mauris a diam maecenas sed enim ut sem. Risus in hendrerit gravida rutrum quisque non tellus orci.
+                    Adipiscing diam donec adipiscing tristique. Volutpat maecenas volutpat blandit aliquam.
+                    Massa tincidunt nunc pulvinar sapien et. Pretium viverra suspendisse potenti nullam ac tortor.
+                    Mus mauris vitae ultricies leo integer.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+}

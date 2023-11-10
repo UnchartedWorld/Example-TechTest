@@ -1,0 +1,146 @@
+﻿@page
+@model MotivWebApp.Pages.FinanceFormModel
+@{
+    ViewData["Title"] = "Submit Application";
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<form method="post">
+    <section class="form-group finance-form">
+
+        <section class="card">
+            <div class="card-header">
+                <h5>General information:</h5>
+            </div>
+
+            <div class="card-body">
+                <div class="form-floating form-input">
+                    <input asp-for="ApplicationRequest.Title" type="text" id="titleInput" class="form-control" placeholder="Mr, Miss, Mrs">
+                    <label for="titleInput">Title (required):</label>
+                    <span asp-validation-for="ApplicationRequest.Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating form-input">
+                    <input asp-for="ApplicationRequest.Name" type="text" id="nameInput" class="form-control" placeholder="John Doe">
+                    <label for="nameInput">Name (required):</label>
+                    <span asp-validation-for="ApplicationRequest.Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating form-input">
+                    <input asp-for="ApplicationRequest.Email" type="email" id="emailInput" class="form-control" placeholder="email@gmail.com">
+                    <label for="emailInput">Email (required):</label>
+                    <span asp-validation-for="ApplicationRequest.Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating form-input">
+                    <input asp-for="ApplicationRequest.PhoneNum" type="tel" id="phoneInput" class="form-control" placeholder="+44 742961752">
+                    <label for="phoneInput">Phone Number (optional):</label>
+                    <span asp-validation-for="ApplicationRequest.PhoneNum" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating form-input">
+                    <input asp-for="ApplicationRequest.DateOfBirth" type="date" id="dobInput" class="form-control" placeholder="05/05/1995">
+                    <label for="dobInput">Date of Birth (required):</label>
+                    <span asp-validation-for="ApplicationRequest.DateOfBirth" class="text-danger"></span>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <section class="form-group finance-form">
+
+        <section class="card">
+            <div class="card-header">
+                <h5>More Personal Information:</h5>
+            </div>
+
+            <div class="card-body">
+                <div class="form-floating form-input">
+                    <select asp-for="ApplicationRequest.MaritalStatusID" class="form-select" id="maritalStatusSelect" aria-label="Marital status selection dropdown">
+                        <option value="0" selected disabled>Select a marital status:</option>
+                        @foreach (var maritalStatus in Model.MaritalStatuses)
+                        {
+                            <option value="@maritalStatus.MaritalStatusID">@maritalStatus.MaritalStatusName</option>
+                        }
+                    </select>
+                    <label for="maritalStatusSelect">Marital Status (required):</label>
+                    <span asp-validation-for="ApplicationRequest.MaritalStatusID" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating form-input">
+                    <select asp-for="ApplicationRequest.DrivingLicenseID" class="form-select" id="drivingLicenseSelect"
+                            aria-label="Driving license selection dropdown">
+
+                        <option value="0" selected disabled>Select a driving license:</option>
+                        @foreach (var drivingLicense in Model.DrivingLicenses)
+                        {
+                            <option value="@drivingLicense.DrivingLicenseID">@drivingLicense.DrivingLicenseName</option>
+                        }
+                    </select>
+                    <label for="drivingLicenseSelect">Driving License (required):</label>
+                    <span asp-validation-for="ApplicationRequest.DrivingLicenseID" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating form-input">
+                    <input asp-for="ApplicationRequest.Address" type="text" id="addressInput" class="form-control"
+                           placeholder="308 Negra Aroya Lane, Albuquerque, New Mexico, 87104">
+                    <label for="addressInput">Address (required):</label>
+                    <span asp-validation-for="ApplicationRequest.Address" class="text-danger"></span>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <section class="form-group finance-form">
+
+        <section class="card">
+            <div class="card-header">
+                <h5>Desired Car Information:</h5>
+            </div>
+
+            <div class="card-body">
+                <!-- Used this code from https://stackoverflow.com/a/68950681 to validate non-numerical values -->
+                <div class="form-floating form-input">
+                    <input asp-for="ApplicationRequest.DepositAmount" id="depositInput" type="number" class="form-control"
+                           onkeypress="return /[0-9]i.test(event.key)" placeholder="19504">
+                    <label for="depositInput">Deposit amount (required):</label>
+                    <span asp-validation-for="ApplicationRequest.DepositAmount" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-floating form-input">
+                    <input asp-for="ApplicationRequest.CarPrice" type="number" id="priceInput" class="form-control"
+                           onkeypress="return /[0-9]i.test(event.key)" placeholder="Price of car:">
+                    <label for="priceInput">Price of desired car (required):</label>
+                    <span asp-validation-for="ApplicationRequest.CarPrice" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating form-input">
+                    <select asp-for="ApplicationRequest.NumOfRepayYears" class="form-select" id="numOfYearsSelect"
+                            aria-label="Number of years to repay selection dropdown">
+
+                        <option value="0" selected hidden>Please select an option</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                        <option value="4">Four</option>
+                        <option value="5">Five</option>
+                    </select>
+                    <label for="numOfYearsSelect">Number of years to repay (required):</label>
+                    <span asp-validation-for="ApplicationRequest.NumOfRepayYears" class="text-danger"></span>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <div class="d-flex justify-content-end">
+        <button type="submit" class="submit-btn btn btn-primary">Submit application</button>
+    </div>
+    
+
+</form>
