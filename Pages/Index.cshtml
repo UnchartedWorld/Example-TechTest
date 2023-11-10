@@ -4,7 +4,20 @@
     ViewData["Title"] = "Home page";
 }
 
+<section class="text-center">
+    <h1 class="display-3">Welcome, here for a quote?</h1>
+</section>
+
+<section class="hero-section text-center row row-cols-1 row-cols-lg-2">
+    <div class="col col-lg-5 hero-text">
+        <p class="lead">Our system will allow you to submit your details and determine if you're eligble for a selection of financial products. <b>Start today!</b></p>
+    </div>
+    <div class="col col-lg-7">
+        <img class="car-image img-fluid" src="images/undraw_navigator_a479.svg" alt="Image depicting a car going towards a destination" 
+             title="Image depicting a car going towards a destination" />
+    </div>
+</section>
+
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <a asp-page="/FinanceForm" role="button" aria-label="Button that redirects to form page" class="btn btn-primary btn-lg mt-3">Apply for car finance</a>
 </div>
