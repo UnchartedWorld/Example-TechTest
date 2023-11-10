@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MotivWebApp.Data;
 using MotivWebApp.DTOs;
+using MotivWebApp.Helpers;
 using MotivWebApp.Models;
 
 namespace MotivWebApp.Pages
@@ -24,16 +25,9 @@ namespace MotivWebApp.Pages
             DrivingLicenses = new List<TableDrivingLicense>();
             MaritalStatuses = new List<TableMaritalStatus>();
         }
-        public async void OnGetAsync()
+        public void OnGetAsync()
         {
-            List<TableDrivingLicense> retrievedDrivingLicenses = await _dBContext.TableDrivingLicense.ToListAsync();
-            List<TableMaritalStatus> retrievedMartialStatuses = await _dBContext.TableMaritalStatus.ToListAsync();
-
-            if (retrievedDrivingLicenses.Count > 0 && retrievedMartialStatuses.Count > 0)
-            {
-                DrivingLicenses.AddRange(retrievedDrivingLicenses);
-                MaritalStatuses.AddRange(retrievedMartialStatuses);
-            }
+            PopulateLists();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -41,20 +35,29 @@ namespace MotivWebApp.Pages
             // https://www.youtube.com/watch?v=PtzH6vu91e8 - A godsend of a video in figuring this aspect out.
             if (ApplicationRequest.CarPrice < ApplicationRequest.DepositAmount)
             {
-                ModelState.AddModelError("ApplicationRequest.CarPrice", "Car price cannot be less than the deposit amount");
+                ModelState.AddModelError("ApplicationRequest.CarPrice", Constants.INVALID_PRICE_MESSAGE);
             }
             if (ApplicationRequest.DepositAmount > ApplicationRequest.CarPrice)
             {
-                ModelState.AddModelError("ApplicationRequest.DepositAmount", "Deposit amount cannot be greater than the car price");
+                ModelState.AddModelError("ApplicationRequest.DepositAmount", Constants.INVALID_DEPOSIT_MESSAGE);
             }
-            if (ApplicationRequest.MaritalStatusID.ToString() == "")
+            if (ApplicationRequest.MaritalStatusID == 0)
             {
-                ModelState.AddModelError("ApplicationRequest.MaritalStatus", "Please select a marital status option");
+                ModelState.AddModelError("ApplicationRequest.MaritalStatusID", Constants.EMPTY_MARITAL_MESSAGE);
+            }
+            if (ApplicationRequest.DrivingLicenseID == 0)
+            {
+                ModelState.AddModelError("ApplicationRequest.DrivingLicenseID", Constants.EMPTY_DRIVING_MESSAGE);
+            }
+            if (ApplicationRequest.NumOfRepayYears == 0)
+            {
+                ModelState.AddModelError("ApplicationRequest.NumOfRepayYears", Constants.EMPTY_REPAY_YEARS_MESSAGE);
             }
 
             if (!ModelState.IsValid)
             {
                 // This should do something if an error has occured with POSTing it.
+                PopulateLists();
                 return Page();
             }
             else
@@ -92,6 +95,24 @@ namespace MotivWebApp.Pages
                 TempData["applicantID"] = submittedApplication.ApplicationID;
                 return RedirectToPage("/FinanceResults");
             }
+        }
+
+        // https://stackoverflow.com/a/74661808 - This solves the de-populated list upon failed POSTing
+        /// <summary>
+        /// Simply put, this retrieves the desired values from the database into an async list and populates
+        /// them.
+        /// </summary>
+        private async void PopulateLists()
+        {
+            List<TableDrivingLicense> retrievedDrivingLicenses = await _dBContext.TableDrivingLicense.ToListAsync();
+            List<TableMaritalStatus> retrievedMartialStatuses = await _dBContext.TableMaritalStatus.ToListAsync();
+
+            if (retrievedDrivingLicenses.Count > 0 && retrievedMartialStatuses.Count > 0)
+            {
+                DrivingLicenses.AddRange(retrievedDrivingLicenses);
+                MaritalStatuses.AddRange(retrievedMartialStatuses);
+            }
+
         }
     }
 }

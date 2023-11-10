@@ -11,7 +11,7 @@ namespace MotivWebApp.Models
         public string ApplicantTitle { get; set; }
         public string ApplicantName { get; set; }
         public string ApplicantEmail { get; set; }
-        public int? ApplicantPhoneNum { get; set; }
+        public string? ApplicantPhoneNum { get; set; }
         public string ApplicantAddress { get; set; }
         public DateTime DateOfBirth { get; set; }
         public int ApplicantDepositAmount { get; set; }

@@ -62,28 +62,28 @@
             <div class="card-body">
                 <div class="form-floating form-input">
                     <select asp-for="ApplicationRequest.MaritalStatusID" class="form-select" id="maritalStatusSelect" aria-label="Marital status selection dropdown">
-                        <option value="" selected disabled>Select a marital status:</option>
+                        <option value="0" selected disabled>Select a marital status:</option>
                         @foreach (var maritalStatus in Model.MaritalStatuses)
                         {
                             <option value="@maritalStatus.MaritalStatusID">@maritalStatus.MaritalStatusName</option>
                         }
                     </select>
                     <label for="maritalStatusSelect">Marital Status (required):</label>
-                    <span class="text-danger"></span>
+                    <span asp-validation-for="ApplicationRequest.MaritalStatusID" class="text-danger"></span>
                 </div>
 
                 <div class="form-floating form-input">
                     <select asp-for="ApplicationRequest.DrivingLicenseID" class="form-select" id="drivingLicenseSelect"
                             aria-label="Driving license selection dropdown">
 
-                        <option value="" selected disabled>Select a driving license:</option>
+                        <option value="0" selected disabled>Select a driving license:</option>
                         @foreach (var drivingLicense in Model.DrivingLicenses)
                         {
                             <option value="@drivingLicense.DrivingLicenseID">@drivingLicense.DrivingLicenseName</option>
                         }
                     </select>
                     <label for="drivingLicenseSelect">Driving License (required):</label>
-                    <span class="text-danger"></span>
+                    <span asp-validation-for="ApplicationRequest.DrivingLicenseID" class="text-danger"></span>
                 </div>
 
                 <div class="form-floating form-input">
@@ -124,7 +124,7 @@
                     <select asp-for="ApplicationRequest.NumOfRepayYears" class="form-select" id="numOfYearsSelect"
                             aria-label="Number of years to repay selection dropdown">
 
-                        <option selected hidden>Please select an option</option>
+                        <option value="0" selected hidden>Please select an option</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
@@ -132,7 +132,7 @@
                         <option value="5">Five</option>
                     </select>
                     <label for="numOfYearsSelect">Number of years to repay (required):</label>
-                    <span class="text-danger"></span>
+                    <span asp-validation-for="ApplicationRequest.NumOfRepayYears" class="text-danger"></span>
                 </div>
             </div>
         </section>
